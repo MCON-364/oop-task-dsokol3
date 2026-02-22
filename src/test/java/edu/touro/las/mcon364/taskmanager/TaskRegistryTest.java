@@ -23,7 +23,7 @@ class TaskRegistryTest {
         Task task = new Task("Test task", Priority.HIGH);
         registry.add(task);
 
-        Task retrieved = registry.get("Test task");
+        Task retrieved = registry.get("Test task").orElseThrow();
         assertNotNull(retrieved, "Added task should be retrievable");
         assertEquals(task, retrieved, "Retrieved task should equal added task");
     }
@@ -37,15 +37,14 @@ class TaskRegistryTest {
         registry.add(task1);
         registry.add(task2);
 
-        Task retrieved = registry.get("Test task");
+        Task retrieved = registry.get("Test task").orElseThrow();
         assertEquals(Priority.HIGH, retrieved.priority(), "Second task should replace first");
     }
 
     @Test
-    @DisplayName("Getting non-existent task should return null")
+    @DisplayName("Getting non-existent task should return empty Optional")
     void testGetNonExistent() {
-        Task result = registry.get("Non-existent");
-        assertNull(result, "Non-existent task should return null (before Optional refactoring)");
+        assertTrue(registry.get("Non-existent").isEmpty(), "Non-existent task should return empty Optional");
     }
 
     @Test
@@ -56,7 +55,7 @@ class TaskRegistryTest {
 
         registry.remove("Test task");
 
-        assertNull(registry.get("Test task"), "Removed task should not be retrievable");
+        assertTrue(registry.get("Test task").isEmpty(), "Removed task should not be retrievable");
     }
 
     @Test
