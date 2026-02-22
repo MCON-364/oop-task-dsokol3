@@ -1,5 +1,5 @@
 package edu.touro.las.mcon364.taskmanager;
 
-public sealed interface Command permits AddTaskCommand, RemoveTaskCommand, UpdateTaskCommand {
+public sealed interface Command permits AddTaskCommand, RemoveTaskCommand, UpdateTaskCommand, ChangePriorityCommand {
     void execute() throws TaskNotFoundException;
 }

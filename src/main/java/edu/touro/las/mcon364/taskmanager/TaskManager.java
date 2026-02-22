@@ -15,7 +15,7 @@ public class TaskManager {
             case AddTaskCommand addCmd -> addCmd.execute();
             case RemoveTaskCommand removeCmd -> removeCmd.execute();
             case UpdateTaskCommand updateCmd -> updateCmd.execute();
-            default -> throw new IllegalArgumentException("Unknown command type");
+            case ChangePriorityCommand changeCmd -> changeCmd.execute();
         }
     }
 }
